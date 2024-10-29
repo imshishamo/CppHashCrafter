@@ -15,6 +15,11 @@
 
 #include "Dictionary.h"
 
+struct Node{
+    int value;
+    struct Node *next;
+};
+typedef struct Node node;
 
 template<typename K, typename V>
 class HashTableChained : public Dictionary<K, V> {
@@ -24,9 +29,7 @@ private:
      *  Place any data fields here.
      **/
     int tableSize;
-    struct node{
-
-    };
+    node** HashTable=NULL;
 
 public:
 
@@ -50,6 +53,9 @@ public:
      *  This function should be used by insert, find, and remove.
      **/
     int compFunction(int code);
+
+    // create hash table
+    node** createHashTable(int size);
 
     /**
      *  Returns the number of entries stored in the dictionary.  Entries with

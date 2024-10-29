@@ -5,8 +5,8 @@
 #include "HashTableChained.cpp"
 #include "HashTableChained.h"
 #include "Integer.h"
-#include"String.h"
-#include"Double.h"
+#include "String.h"
+#include "Double.h"
 #include "CheckerBoard.h"
 #include "CheckerBoard.cpp"
 #include "Entry.h"
@@ -36,14 +36,14 @@ int main() {
     stringTable->makeEmpty();
     cout << "Size should be 0 : " << stringTable->size() << endl;
 
-    // cout << "===============================Double Hash Table Test=====================================" << endl;
-    // HashTableChained<Double*, Integer*>* doubleTable = new HashTableChained<Double*, Integer*>(numBoards);
-    // initTable(doubleTable, numBoards);
-    // doubleTable->insert(new Double(10), new Integer(1));
-    // doubleTable->insert(new Double(20), new Integer(2));
-    // cout << "Size should be 2 : " << doubleTable->size() << endl;
+    cout << "===============================Double Hash Table Test=====================================" << endl;
+    HashTableChained<Double*, Integer*>* doubleTable = new HashTableChained<Double*, Integer*>(numBoards);
+    //initTable(doubleTable, numBoards);
+    doubleTable->insert(new Double(10), new Integer(1));
+    doubleTable->insert(new Double(20), new Integer(2));
+    cout << "Size should be 2 : " << doubleTable->size() << endl;
 
-    // cout << "===============================CheckerBoard Hash Table Test===============================" << endl;
+    cout << "===============================CheckerBoard Hash Table Test===============================" << endl;
     // HashTableChained<CheckerBoard*, Integer*>* table = new HashTableChained<CheckerBoard*, Integer*>(numBoards);
     // table->makeEmpty();
     // for (int i = 0; i < numBoards; i++) {
@@ -56,10 +56,10 @@ int main() {
     //     }
     // }
 
-    // // To test your hash function, add a method to your HashTableChained class
-    // // that counts the number of collisions--or better yet, also prints
-    // // a histograph of the number of entries in each bucket.  Call this method
-    // // from here.
+    // To test your hash function, add a method to your HashTableChained class
+    // that counts the number of collisions--or better yet, also prints
+    // a histograph of the number of entries in each bucket.  Call this method
+    // from here.
     return 0;
 }
 

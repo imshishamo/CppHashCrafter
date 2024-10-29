@@ -12,6 +12,7 @@
  **/
 
 #include "CheckerBoard.h"
+using namespace std;
 
 /**
  *  Construct a new board in which all cells are zero.
@@ -45,7 +46,7 @@ void CheckerBoard::setElementAt(int x, int y, int value) {
  *  @exception ArrayIndexOutOfBoundsException is thrown if an invalid index
  *  is given.
  */
-int CheckerBoard::elementAt(int x, int y) {
+int CheckerBoard::elementAt(int x, int y) const {
     return grid[x][y];
 }
 
@@ -56,10 +57,14 @@ int CheckerBoard::elementAt(int x, int y) {
  *  @return true if the boards are equal, false otherwise.
  */
 bool CheckerBoard::equals(const CheckerBoard& board) {
-    // Replace the following line with your solution.  Be sure to return false
-    //   (rather than throwing a ClassCastException) if "board" is not
-    //   a CheckerBoard.
-    return false;
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            if (grid[i][j] != board.elementAt(i,j)) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 /**
@@ -67,6 +72,24 @@ bool CheckerBoard::equals(const CheckerBoard& board) {
  *  @return a number between Integer.MIN_VALUE and Integer.MAX_VALUE.
  */
 int CheckerBoard::hashCode() {
-    // Replace the following line with your solution.
-    return 99;
+    string boardString = toString();  // 取得棋盤的字串表示
+    int hash = 0;
+    int base = 31;  // 使用 31 作為雜湊的基數（常用質數）
+    for (char c : boardString) {
+        hash = base * hash + (c - '0');  // 轉換字元回整數後累積雜湊值
+    }
+    return hash;
 }
+
+// 將棋盤的內容轉換成長度為 64 的字串
+string CheckerBoard::toString(){
+    string result;
+    result.reserve(64);  // 預留空間，避免多次分配
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            result += to_string(grid[i][j]);  // 將數值轉為字元
+        }
+    }
+    return result;
+}
+

@@ -10,6 +10,10 @@
  **/
 
 #include "HashTableChained.h"
+#include "String.h"
+#include "Double.h"
+#include "Integer.h"
+#include "CheckerBoard.h"
 using namespace std;
 /**
  *  Construct a new empty hash table intended to hold roughly sizeEstimate
@@ -17,11 +21,29 @@ using namespace std;
  *  you use a prime number, and shoot for a load factor between 0.5 and 1.)
  **/
 template<typename K, typename V>
+// constructor-Estimate
 HashTableChained<K, V>::HashTableChained(int sizeEstimate) {
     // Your solution here.
     tableSize = sizeEstimate;
-    cout << tableSize<< endl;
+    //cout << tableSize<< endl;
+    HashTable=createHashTable(tableSize);
+    /*
+    if(HashTable==NULL){
+        cout << "Memory allocation failed" << endl;
+    }else{
+        cout << "Memory allocation success" << endl;    
+    }
+    */
+}
 
+template<typename K, typename V>
+node** HashTableChained<K, V>::createHashTable(int size){
+    //cout<<size<<endl;
+    node **hashTable = (node **)malloc(size * sizeof(node *));    
+    for(int i=0;i<size;i++){
+        hashTable[i]=NULL;
+    }
+    return hashTable;
 }
 
 /**
@@ -29,6 +51,7 @@ HashTableChained<K, V>::HashTableChained(int sizeEstimate) {
  *  the neighborhood of 100.
  **/
 template<typename K, typename V>
+// constructor
 HashTableChained<K, V>::HashTableChained() {
     // Your solution here.
 }
@@ -42,8 +65,10 @@ HashTableChained<K, V>::HashTableChained() {
  **/
 template<typename K, typename V>
 int HashTableChained<K, V>::compFunction(int code) {
-    // Replace the following line with your solution.
-    return 88;
+    if (code<0){
+        code =-code;
+    }
+    return code%tableSize;
 }
 
 /**
@@ -54,8 +79,13 @@ int HashTableChained<K, V>::compFunction(int code) {
  **/
 template<typename K, typename V>
 int HashTableChained<K, V>::size() {
-    // Replace the following line with your solution.
-    return 0;
+    int count=0;
+    for(int i=0;i<tableSize;i++){
+        if(HashTable[i]!=NULL){
+            count++;
+        }
+    }
+    return count;
 }
 
 /**
@@ -80,10 +110,29 @@ bool HashTableChained<K, V>::isEmpty() {
  *  @param key the key by which the entry can be retrieved.
  *  @param value an arbitrary object.
  **/
+
 template<typename K, typename V>
 void HashTableChained<K, V>::insert(const K& key, const V& value) {
-    // Replace the following line with your solution.
-    
+    int hashcode=key->hashCode();
+    int index=compFunction(hashcode);
+    // cout << index << endl;
+    // cout<<"key : "<<key->getvalue()<<" value : "<<value->getvalue()<<" hashcode : "<<hashcode<<" index : "<<index<<endl;
+    node* newNode=(node*)malloc(sizeof(node));
+    newNode->value=value->getvalue();
+    // 第一個 -> 是 Struct node指標型態呼叫其成員變數
+    // 第二個-> 是 Integer class指標型態呼叫其成員函式
+    newNode->next=NULL;
+    if (HashTable[index]==NULL){
+        HashTable[index]=newNode;
+    }
+    else
+    {
+        node* temp=HashTable[index];
+        while(temp->next!=NULL){
+            temp=temp->next;
+        }
+        temp->next=newNode;
+    } 
 }
 
 /**
@@ -98,8 +147,14 @@ void HashTableChained<K, V>::insert(const K& key, const V& value) {
  **/
 template<typename K, typename V>
 bool HashTableChained<K, V>::find(const K& key) {
-    // Replace the following line with your solution.
-    return false;
+    int hashcode=key->hashCode();
+    int index=compFunction(hashcode);
+    if (HashTable[index]==NULL){
+        return false;
+    }else
+    {
+        return true;
+    }
 }
 
 /**
@@ -115,7 +170,26 @@ bool HashTableChained<K, V>::find(const K& key) {
 template<typename K, typename V>
 void HashTableChained<K, V>::remove(const K&  key) {
     // Replace the following line with your solution.
+    int hashcode=key->hashCode();
+    int index=compFunction(hashcode);
+    // cout << index << endl;
+    if (HashTable[index]==NULL){
+        return;
+    }else
+    {
+        node* prev=HashTable[index];
+        node* curr=HashTable[index];
+        while(curr!=NULL){
+            node* temp=curr;
+            prev->next=curr->next;
+            temp->next=NULL;
+            curr=curr->next;
+            free(temp);
+        }
+        HashTable[index]=NULL;
+    }
 }
+
 
 /**
  *  Remove all entries from the dictionary.
@@ -123,4 +197,22 @@ void HashTableChained<K, V>::remove(const K&  key) {
 template<typename K, typename V>
 void HashTableChained<K, V>::makeEmpty() {
     // Your solution here.
+    for(int i=0;i<tableSize;i++){
+        if(HashTable[i]!=NULL){
+            node* prev=HashTable[i];
+            node* curr=HashTable[i];
+            while(curr!=NULL){
+                node* temp=curr;
+                prev->next=curr->next;
+                temp->next=NULL;
+                curr=curr->next;
+                free(temp);
+            }
+            HashTable[i]=NULL;
+        }
+    }
 }
+
+template class HashTableChained<String*, Integer*>;
+template class HashTableChained<Double*,Integer*>;
+//template class HashTableChained<CheckerBoard*,Integer*>;

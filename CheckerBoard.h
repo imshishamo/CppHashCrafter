@@ -7,6 +7,8 @@
 
 #ifndef CHECKERBOARD_H
 #define CHECKERBOARD_H
+#include <string>
+using namespace std;
 
 class CheckerBoard {
 private:
@@ -45,7 +47,7 @@ public:
    *  @exception ArrayIndexOutOfBoundsException is thrown if an invalid index
    *  is given.
    */
-  int elementAt(int x, int y);
+  int elementAt(int x, int y) const;
 
   /**
    *  Returns true if "this" CheckerBoard and "board" have identical values in
@@ -60,6 +62,7 @@ public:
    *  @return a number between Integer.MIN_VALUE and Integer.MAX_VALUE.
    */
   int hashCode();
+  string toString();
 };
 
 #endif

@@ -30,7 +30,7 @@ bool Double::equals(const Double& db) {
     // Replace the following line with your solution.  Be sure to return false
     //   (rather than throwing a ClassCastException) if "db" is not
     //   a Double.
-    return false;
+    return d==db.getvalue();
 }
 
 /**
@@ -38,6 +38,7 @@ bool Double::equals(const Double& db) {
  *  @return a number between Integer.MIN_VALUE and Integer.MAX_VALUE.
  */
 int Double::hashCode() const{
-    // Replace the following line with your solution.
-    return 77;
+    const int prime = 101;
+    int code=static_cast<int>(d*prime);
+    return code;
 }
