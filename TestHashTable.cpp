@@ -44,18 +44,18 @@ int main() {
     cout << "Size should be 2 : " << doubleTable->size() << endl;
 
     cout << "===============================CheckerBoard Hash Table Test===============================" << endl;
-    // HashTableChained<CheckerBoard*, Integer*>* table = new HashTableChained<CheckerBoard*, Integer*>(numBoards);
-    // table->makeEmpty();
-    // for (int i = 0; i < numBoards; i++) {
-    //     CheckerBoard* board = randomBoard();
-    //     table->insert(board, new Integer(i));
+    HashTableChained<CheckerBoard*, Integer*>* table = new HashTableChained<CheckerBoard*, Integer*>(numBoards);
+    table->makeEmpty();
+    for (int i = 0; i < numBoards; i++) {
+        CheckerBoard* board = randomBoard();
+        table->insert(board, new Integer(i));
 
-    //     if (!board->equals(*board)) {
-    //         cout << "0";
-    //         break;
-    //     }
-    // }
-
+        if (!board->equals(*board)) {
+            cout << "0";
+            break;
+        }
+    }
+    //table->printCollision();   
     // To test your hash function, add a method to your HashTableChained class
     // that counts the number of collisions--or better yet, also prints
     // a histograph of the number of entries in each bucket.  Call this method

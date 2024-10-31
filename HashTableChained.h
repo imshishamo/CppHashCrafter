@@ -113,6 +113,11 @@ public:
      *  Remove all entries from the dictionary.
      */
     virtual void makeEmpty();
+
+    /**
+     * Print collision
+     */
+    virtual void printCollision();
 };
 
 #endif

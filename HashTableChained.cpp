@@ -213,6 +213,25 @@ void HashTableChained<K, V>::makeEmpty() {
     }
 }
 
+template<typename K, typename V>
+void HashTableChained<K, V>::printCollision(){
+    for(int i=0;i<tableSize;i++){
+        int num=0;
+        if(HashTable[i]!=NULL){
+            node* curr=HashTable[i];
+            while(curr!=NULL){
+                num++;
+                curr=curr->next;
+            }
+        }
+        printf("%3d :",i);
+        for (int i=0;i<num;i++){
+            cout << "* " ;
+        }
+        cout << endl;
+    }   
+}
+
 template class HashTableChained<String*, Integer*>;
 template class HashTableChained<Double*,Integer*>;
-//template class HashTableChained<CheckerBoard*,Integer*>;
+template class HashTableChained<CheckerBoard*,Integer*>;
