@@ -9,11 +9,13 @@
  *
  **/
 
+#include <iostream>
 #include "HashTableChained.h"
 #include "String.h"
 #include "Double.h"
 #include "Integer.h"
 #include "CheckerBoard.h"
+
 using namespace std;
 /**
  *  Construct a new empty hash table intended to hold roughly sizeEstimate
